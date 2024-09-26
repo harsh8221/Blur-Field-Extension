@@ -1,0 +1,26 @@
+# Node artifact files
+node_modules
+
+# Local IDE files
+.vscode
+
+# Local Build/Development Folders
+.yalc
+.next
+dist
+build
+
+# Local Build/Development Files
+yalc.lock
+
+# Local mac book files
+.DS_Store
+
+# eslint cache file
+.eslintcache
+
+# Local code quality & Test files
+gl-code-quality-report.json
+**/junit.xml
+coverage
+coverage.txt
