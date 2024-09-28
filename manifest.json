@@ -5,7 +5,8 @@
   "description": "Blurs fields with copy buttons, financial details, and allows blurring the whole page via a shortcut.",
   "permissions": [
     "activeTab",
-    "scripting"
+    "scripting",
+    "storage"
   ],
   "background": {
     "service_worker": "background.js"
@@ -27,6 +28,28 @@
         "mac": "Command+Shift+B"
       },
       "description": "Blur the entire page"
+    },
+    "toggle_selection_mode": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+U",
+        "mac": "Command+Shift+U"
+      },
+      "description": "Toggle Blur Selection Mode"
     }
+  },
+  "action": {
+    "default_title": "Toggle Blur Selection Mode",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
   }
 }
