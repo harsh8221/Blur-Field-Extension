@@ -38,6 +38,8 @@ function applyStoredBlurs() {
       const elements = document.querySelectorAll(selector);
       elements.forEach(el => {
         el.classList.add('blurred-element');
+        // Attach click event to handle unblurring
+        el.addEventListener('click', handleBlurredElementClick, true);
         observeElement(el, shouldBlurStoredElement);
       });
     });
@@ -73,6 +75,9 @@ function handleElementClick(event) {
   // Add blur class
   element.classList.add('blurred-element');
 
+  // Attach click event to handle unblurring
+  element.addEventListener('click', handleBlurredElementClick, true);
+
   // Add selector to storedSelectors
   if (!storedSelectors.includes(selector)) {
     storedSelectors.push(selector);
@@ -85,6 +90,41 @@ function handleElementClick(event) {
 
   // Exit selection mode
   toggleSelectionMode();
+}
+
+// Function to disconnect observer for an element
+function disconnectObserver(el) {
+  if (observersMap.has(el)) {
+    const observer = observersMap.get(el);
+    observer.disconnect();
+    observersMap.delete(el);
+  }
+}
+
+// Function to handle click on a blurred element to unblur it
+function handleBlurredElementClick(event) {
+  event.preventDefault();
+  event.stopPropagation();
+
+  const element = event.currentTarget;
+  const selector = getUniqueSelector(element);
+
+  // Remove blur class
+  element.classList.remove('blurred-element');
+
+  // Remove the click event listener
+  element.removeEventListener('click', handleBlurredElementClick, true);
+
+  // Remove selector from storedSelectors
+  const index = storedSelectors.indexOf(selector);
+  if (index > -1) {
+    storedSelectors.splice(index, 1);
+    // Update storage
+    chrome.storage.local.set({ [hostname]: storedSelectors });
+  }
+
+  // Disconnect the observer for this element
+  disconnectObserver(element);
 }
 
 // Function to handle mouse move in selection mode
