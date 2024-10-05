@@ -1,13 +1,25 @@
 // src/content/messageHandler.ts
 
-import { toggleSelectionMode } from "./selectionMode";
+import { toggleToolbar } from "./toolbar";
+import { toggleSelectionMode, toggleEntirePageBlur } from "./selectionMode";
+import { createBlurOverlay, removeBlurOverlay } from "./blurOverlay";
+
+let isPageBlurred = false;
 
 export function initializeMessageHandler(): void {
   chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (request.action === "toggle_selection_mode") {
       toggleSelectionMode();
     } else if (request.action === "blur_everything") {
-      document.body.classList.add("blurred-element");
+      if (!isPageBlurred) {
+        createBlurOverlay();
+        isPageBlurred = true;
+      } else {
+        removeBlurOverlay();
+        isPageBlurred = false;
+      }
+    } else if (request.action === "toggle_toolbar") {
+      toggleToolbar();
     }
   });
 }

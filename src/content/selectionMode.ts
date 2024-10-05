@@ -2,8 +2,10 @@
 
 import { blurElement } from "./blurManager";
 import { getUniqueSelector } from "./utils";
+import { createBlurOverlay, removeBlurOverlay } from "./blurOverlay";
 
 let isSelectionMode = false;
+let isPageBlurred = false;
 let hoverElement: HTMLElement | null = null;
 
 export function initializeSelectionMode(): void {
@@ -26,6 +28,17 @@ export function toggleSelectionMode(): void {
       hoverElement = null;
     }
   }
+}
+
+export function toggleEntirePageBlur(): boolean {
+  if (!isPageBlurred) {
+    createBlurOverlay();
+    isPageBlurred = true;
+  } else {
+    removeBlurOverlay();
+    isPageBlurred = false;
+  }
+  return isPageBlurred;
 }
 
 // Function to handle element click in selection mode

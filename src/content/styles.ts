@@ -11,6 +11,10 @@ export function injectStyles(): void {
     .blurred-element:hover {
       filter: none;
     }
+    .blurred-page {
+      filter: blur(5px);
+      transition: filter 0.3s;
+    }
     .blur-selection-mode * {
       cursor: crosshair !important;
     }

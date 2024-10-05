@@ -35,10 +35,17 @@
         "mac": "Command+Shift+U"
       },
       "description": "Toggle Blur Selection Mode"
+    },
+    "toggle_toolbar": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+T",
+        "mac": "Alt+Shift+T"
+      },
+      "description": "Toggle Toolbar"
     }
   },
   "action": {
-    "default_title": "Toggle Blur Selection Mode",
+    "default_title": "Toggle Toolbar",
     "default_icon": {
       "16": "icons/icon.png",
       "32": "icons/icon128.png",
