@@ -1,54 +1,73 @@
 import { toggleSelectionMode, toggleEntirePageBlur } from "./selectionMode";
 
-export function createToolbar(): HTMLElement {
-  const toolbar = document.createElement("div");
-  toolbar.id = "blur-extension-toolbar";
+function createBlurSelectionButton(): HTMLElement {
+  const blurButton = document.createElement('button');
+  blurButton.innerText = 'Blur Selection Mode';
+  blurButton.style.padding = '10px 20px';
+  blurButton.style.fontSize = '14px';
+  blurButton.style.cursor = 'pointer';
 
-  //set initial styles
-  toolbar.style.position = "fixed";
-  toolbar.style.bottom = "0";
-  toolbar.style.left = "0";
-  toolbar.style.width = "100%";
-  toolbar.style.height = "50px";
-  toolbar.style.backgroundColor = "#333";
-  toolbar.style.color = "#fff";
-  toolbar.style.display = "flex";
-  toolbar.style.alignItems = "center";
-  toolbar.style.justifyContent = "space-around";
-  toolbar.style.zIndex = "9999";
-  toolbar.style.boxShadow = "0 -2px 5px rgba(0, 0, 0, 0.3)";
+  blurButton.addEventListener('click', toggleSelectionMode);
+  return blurButton;
+}
 
-  toolbar.style.display = "none";
+function createtoggleBlurPageButton(): HTMLElement {
+  const blurPageButton = document.createElement('button');
+  blurPageButton.innerText = 'Blur Entire Page';
+  blurPageButton.style.padding = '10px 20px';
+  blurPageButton.style.fontSize = '14px';
+  blurPageButton.style.cursor = 'pointer';
 
-  const blurButton = document.createElement("button");
-  blurButton.innerText = "Blur Selection Mode";
-  blurButton.style.padding = "10px 20px";
-  blurButton.style.fontSize = "14px";
-  blurButton.style.cursor = "pointer";
-
-  blurButton.addEventListener("click", toggleSelectionMode);
-
-  // Blur Entire Page Button
-  const blurPageButton = document.createElement("button");
-  blurPageButton.innerText = "Blur Entire Page";
-  blurPageButton.style.padding = "10px 20px";
-  blurPageButton.style.fontSize = "14px";
-  blurPageButton.style.cursor = "pointer";
-
-  blurPageButton.addEventListener("click", () => {
+  blurPageButton.addEventListener('click', () => {
     let isPageBlurred = toggleEntirePageBlur();
     if (isPageBlurred) {
-      blurPageButton.innerText = "Unblur Page";
+      blurPageButton.innerText = 'Unblur Page';
     } else {
-      blurPageButton.innerText = "Blur Entire Page";
+      blurPageButton.innerText = 'Blur Entire Page';
     }
   });
+
+  return blurPageButton;
+}
+
+export function createToolbar(): HTMLElement {
+  const toolbarContainer = document.createElement('div');
+  toolbarContainer.id = 'blur-extension-toolbar';
+
+  toolbarContainer.style.position = 'fixed';
+  toolbarContainer.style.bottom = '12px';
+  toolbarContainer.style.width = '100%';
+  toolbarContainer.style.display = 'flex';
+  toolbarContainer.style.justifyContent = 'center';
+  toolbarContainer.style.zIndex = '9999';
+
+  const toolbar = document.createElement('div');
+
+  //set initial styles
+  toolbar.style.width = 'fit-content';
+  toolbar.style.padding = '0 24px';
+  toolbar.style.gap = '8px';
+  toolbar.style.borderRadius = '100px';
+  toolbar.style.height = '50px';
+  toolbar.style.backgroundColor = '#333';
+  toolbar.style.color = '#fff';
+  toolbar.style.display = 'flex';
+  toolbar.style.alignItems = 'center';
+  toolbar.style.justifyContent = 'space-around';
+  toolbar.style.zIndex = '9999';
+  toolbar.style.boxShadow = '0 -2px 5px rgba(0, 0, 0, 0.3)';
+
+  const blurButton = createBlurSelectionButton();
+
+  // Blur Entire Page Button
+  const blurPageButton = createtoggleBlurPageButton();
 
   // Append buttons to the toolbar
   toolbar.appendChild(blurButton);
   toolbar.appendChild(blurPageButton);
 
-  return toolbar;
+  toolbarContainer.appendChild(toolbar);
+  return toolbarContainer;
 }
 
 export function showToolbar(): void {
