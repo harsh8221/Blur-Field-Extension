@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Blur Fields Extension",
   "version": "1.0",
-  "description": "Blurs fields with copy buttons, financial details, and allows blurring the whole page via a shortcut.",
+  "description": "Blurs specific fields which are required and allows blurring the whole page via a shortcut.",
   "permissions": [
     "activeTab",
     "scripting",
