@@ -1,11 +1,26 @@
 import { toggleSelectionMode, toggleEntirePageBlur } from "./selectionMode";
+import blurOn from '../icons/blurOn';
+import blurOff from '../icons/blurOff';
+import selectIcon from '../icons/selectIcon';
+
+const iconButtonStyle = `
+    width: 24px;
+    height: 24px;
+    margin: 0 15px;
+    cursor: pointer;
+    transition: transform 0.2s;
+  `;
 
 function createBlurSelectionButton(): HTMLElement {
   const blurButton = document.createElement('button');
-  blurButton.innerText = 'Blur Selection Mode';
-  blurButton.style.padding = '10px 20px';
+  blurButton.style.padding = '8px 8px';
   blurButton.style.fontSize = '14px';
   blurButton.style.cursor = 'pointer';
+  const blurPageIcon = document.createElement('span');
+  blurPageIcon.innerHTML = selectIcon;
+  blurPageIcon.style.cssText = iconButtonStyle;
+
+  blurButton.appendChild(blurPageIcon);
 
   blurButton.addEventListener('click', toggleSelectionMode);
   return blurButton;
@@ -13,20 +28,24 @@ function createBlurSelectionButton(): HTMLElement {
 
 function createtoggleBlurPageButton(): HTMLElement {
   const blurPageButton = document.createElement('button');
-  blurPageButton.innerText = 'Blur Entire Page';
-  blurPageButton.style.padding = '10px 20px';
+  blurPageButton.style.padding = '8px 8px';
   blurPageButton.style.fontSize = '14px';
   blurPageButton.style.cursor = 'pointer';
+
+  const blurPageIcon = document.createElement('span');
+  blurPageIcon.innerHTML = blurOn;
+  blurPageIcon.style.cssText = iconButtonStyle;
 
   blurPageButton.addEventListener('click', () => {
     let isPageBlurred = toggleEntirePageBlur();
     if (isPageBlurred) {
-      blurPageButton.innerText = 'Unblur Page';
+      blurPageIcon.innerHTML = blurOff;
     } else {
-      blurPageButton.innerText = 'Blur Entire Page';
+      blurPageIcon.innerHTML = blurOn;
     }
   });
 
+  blurPageButton.appendChild(blurPageIcon);
   return blurPageButton;
 }
 
@@ -45,10 +64,9 @@ export function createToolbar(): HTMLElement {
 
   //set initial styles
   toolbar.style.width = 'fit-content';
-  toolbar.style.padding = '0 24px';
+  toolbar.style.padding = '8px 24px';
   toolbar.style.gap = '8px';
   toolbar.style.borderRadius = '100px';
-  toolbar.style.height = '50px';
   toolbar.style.backgroundColor = '#333';
   toolbar.style.color = '#fff';
   toolbar.style.display = 'flex';
